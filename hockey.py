@@ -21,6 +21,5 @@ with sqlite3.connect(DATABASE) as db:
     results = cursor.fetchall()
     print(results)
     # Print the data so you can actually see it
-    for top_20 in results:
+    for player in results:
         print(f"Player: {player[1]}, Team: {player[2]}, Points: {player[8]}")
-        print('hello')
