@@ -2,6 +2,7 @@ import sqlite3
 
 DATABASE = 'hockey.db'
 
+#this query prints all players and their team, no extra stats
 with sqlite3.connect(DATABASE) as db:
 
     cursor = db.cursor()
@@ -13,6 +14,7 @@ with sqlite3.connect(DATABASE) as db:
     for player in results:
         print(f"Player: {player[1]} Team: {player[2]}")
 
+#this query shows the top 20 players in the league based on their points
 with sqlite3.connect(DATABASE) as db:
 
     cursor = db.cursor()
@@ -24,6 +26,8 @@ with sqlite3.connect(DATABASE) as db:
     for player in results:
         print(f"Player: {player[1]}, Team: {player[2]}, Points: {player[8]}")
 
+#this query will print all players alphabetically. this includes player, team, what hand they shoot with,
+# position, games played, points, the +/-/ and penalty minutes
 with sqlite3.connect(DATABASE) as db:
 
     cursor = db.cursor()
