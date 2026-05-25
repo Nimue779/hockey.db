@@ -23,3 +23,14 @@ with sqlite3.connect(DATABASE) as db:
     # Print the data so you can actually see it
     for player in results:
         print(f"Player: {player[1]}, Team: {player[2]}, Points: {player[8]}")
+
+with sqlite3.connect(DATABASE) as db:
+
+    cursor = db.cursor()
+    alphabetical = 'SELECT * FROM players ORDER BY name ASC;'
+    cursor.execute(alphabetical)
+    results = cursor.fetchall()
+    print(results)
+    # Print the data so you can actually see it
+    for player in results:
+        print(f"Player: {player[1]}, Team: {player[2]}, Shoots: {player[3]}, Position: {player[4]}, Games played: {player[5]}, Points: {player[8]},  +/-: {player[9]}, Penalty Minutes: {player[10]}")
