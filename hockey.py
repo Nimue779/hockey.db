@@ -2,6 +2,10 @@ import sqlite3
 
 DATABASE = 'hockey.db'
 
+print('Welcome to my Hockey Database')
+print('1. Print all player and their team')
+print('2. Print all players alphabetically and their stats')
+print('3. Print top 20 players')
 # this query prints all players and their team, no extra stats
 with sqlite3.connect(DATABASE) as db:
 
