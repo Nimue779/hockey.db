@@ -70,9 +70,31 @@ def top20():
     # loop finishes here
     db.close()
 
+def print_team_avg_and_max():
+    '''print the avergae and maximum points for each team'''
+    db = sqlite3.connect(DATABASE)
+    cursor = db.cursor()
+    sql = '''
+    SELECT 
+        team,
+        MAX(points) As max_points,
+        ROUND(AVG(points), 2) AS avg_points, 
+        ROUND(MAX(points) - AVG(points), 2) AS difference
+    FROM players
+    GROUP BY team ORDER BY difference DESC;    
+    '''
+    cursor.execute(sql)
+    results = cursor.fetchall()
+    print('Team points average and max')
+    # loop through the results
+    for player in results:
+        print(f"Team:{player[0]:<30} Max points:{player[1]} Average points:{player[2]} Diff: {player[3]}")
+    # loop finishes here
+    db.close()
+
 # main code
 while True:
-    user_input = input("\nWhat would you like to do?\n1Print all players \n2Choose a team\n3Choose players\n4Print top 20 players\n")
+    user_input = input("\nWhat would you like to do?\n1Print all players \n2Choose a team\n3Choose players\n4Print top 20 players\n5Print team avg and max\n")
 
     if user_input == '1':
         print_all_players()
@@ -82,6 +104,8 @@ while True:
         print_specific_players_stats()
     elif user_input == '4':
         top20()
+    elif user_input == '5':
+        print_team_avg_and_max()
     else:
         print('end')
         break
