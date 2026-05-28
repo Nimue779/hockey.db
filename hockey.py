@@ -56,13 +56,13 @@ def print_specific_players_stats():
 
     db = sqlite3.connect(DATABASE)
     cursor = db.cursor()
-    sql = f"SELECT name, team, points FROM players WHERE name LIKE '%{user_input}%'"
+    sql = f"SELECT name, team, points, GamesPlayed FROM players WHERE name LIKE '%{user_input}%'"
     cursor.execute(sql)
     results = cursor.fetchall()
     print(f'Print players with names matching {user_input}')
     # loop through the results
     for player in results:
-        print(f"Player:{player[0]} Team:{player[1]} Points:{player[2]}")
+        print(f"Player:{player[0]} Team:{player[1]} Points:{player[2]} Games Played:{player[3]}")
     # loop finishes here
     db.close()
 
