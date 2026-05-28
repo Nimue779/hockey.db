@@ -4,9 +4,17 @@ import sqlite3
 # constants and variables
 DATABASE = 'hockey.db'
 
+# menu button options
+PRINT_ALL_PLAYERS = '1'
+PRINT_ALL_PLAYERS_IN_TEAM = '2'
+PRINT_SPECIFIC_PLAYERS_STATS = '3'
+PRINT_TOP_20 = '4'
+PRINT_AVG_AND_MAX = '5'
 
 # functions
-#prints all players and team
+# prints all players and team
+
+
 def print_all_players():
     '''print all players nicely'''
     db = sqlite3.connect(DATABASE)
@@ -40,6 +48,8 @@ def print_all_players_in_team():
     db.close()
 
 # allows users to search for specific players
+
+
 def print_specific_players_stats():
     '''print a player that the uses has input and their season stats'''
     user_input = input("Enter player name\n")
@@ -56,6 +66,7 @@ def print_specific_players_stats():
     # loop finishes here
     db.close()
 
+
 def top20():
     '''print top 20 players'''
     db = sqlite3.connect(DATABASE)
@@ -70,43 +81,49 @@ def top20():
     # loop finishes here
     db.close()
 
+
 def print_team_avg_and_max():
     '''print the avergae and maximum points for each team'''
     db = sqlite3.connect(DATABASE)
     cursor = db.cursor()
     sql = '''
-    SELECT 
+    SELECT
         team,
         MAX(points) As max_points,
-        ROUND(AVG(points), 2) AS avg_points, 
+        ROUND(AVG(points), 2) AS avg_points,
         ROUND(MAX(points) - AVG(points), 2) AS difference
     FROM players
-    GROUP BY team ORDER BY difference DESC;    
+    GROUP BY team ORDER BY difference DESC;
     '''
     cursor.execute(sql)
     results = cursor.fetchall()
     print('Team points average and max')
     # loop through the results
+
+
     for player in results:
         print(f"Team:{player[0]:<30} Max points:{player[1]} Average points:{player[2]} Diff: {player[3]}")
     # loop finishes here
+
+
     db.close()
 
 # main code
+
+
 while True:
     user_input = input("\nWhat would you like to do?\n1Print all players \n2Choose a team\n3Choose players\n4Print top 20 players\n5Print team avg and max\n")
 
-    if user_input == '1':
+    if user_input == PRINT_ALL_PLAYERS:
         print_all_players()
-    elif user_input == '2':
+    elif user_input == PRINT_ALL_PLAYERS_IN_TEAM:
         print_all_players_in_team()
-    elif user_input == '3':
+    elif user_input == PRINT_SPECIFIC_PLAYERS_STATS:
         print_specific_players_stats()
-    elif user_input == '4':
+    elif user_input == PRINT_TOP_20:
         top20()
-    elif user_input == '5':
+    elif user_input == PRINT_AVG_AND_MAX:
         print_team_avg_and_max()
     else:
         print('end')
         break
-        
