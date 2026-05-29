@@ -113,7 +113,7 @@ def print_team_avg_and_max():
 
 
 while True:
-    user_input = input("\nWhat would you like to do?\n1Print all players \n2Choose a team\n3Choose players\n4Print top 20 players\n5Print team avg and max\n")
+    user_input = input("\nWhat would you like to do?\n1Print all players \n2Choose a team\n3Choose players\n4Print top players\n5Print team avg and max\n")
 
     if user_input == PRINT_ALL_PLAYERS:
         print_all_players()
