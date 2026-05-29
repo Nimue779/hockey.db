@@ -8,8 +8,9 @@ DATABASE = 'hockey.db'
 PRINT_ALL_PLAYERS = '1'
 PRINT_ALL_PLAYERS_IN_TEAM = '2'
 PRINT_SPECIFIC_PLAYERS_STATS = '3'
-PRINT_TOP_20 = '4'
+PRINT_TOP_PLAYERS = '4'
 PRINT_AVG_AND_MAX = '5'
+DEFAULT_TOP_PLAYERS = 20 
 
 # functions
 # prints all players and team
@@ -62,16 +63,16 @@ def print_specific_players_stats():
     print(f'Print players with names matching {user_input}')
     # loop through the results
     for player in results:
-        print(f"Player:{player[0]} Team:{player[1]} Points:{player[2]} Games Played:{player[3]}")
+        print(f"Player:{player[0]:<30} Team:{player[1]} Points:{player[2]} Games Played:{player[3]}")
     # loop finishes here
     db.close()
 
 
-def top20():
-    '''print top 20 players'''
+def print_top_players(num_players):
+    '''print top num players'''
     db = sqlite3.connect(DATABASE)
     cursor = db.cursor()
-    sql = 'SELECT name, team, points FROM players ORDER BY points DESC LIMIT 20'
+    sql = f'SELECT name, team, points FROM players ORDER BY points DESC LIMIT {num_players}'
     cursor.execute(sql)
     results = cursor.fetchall()
     print('Top 20 players by points')
@@ -120,8 +121,8 @@ while True:
         print_all_players_in_team()
     elif user_input == PRINT_SPECIFIC_PLAYERS_STATS:
         print_specific_players_stats()
-    elif user_input == PRINT_TOP_20:
-        top20()
+    elif user_input == PRINT_TOP_PLAYERS:
+        print_top_players(DEFAULT_TOP_PLAYERS)
     elif user_input == PRINT_AVG_AND_MAX:
         print_team_avg_and_max()
     else:
